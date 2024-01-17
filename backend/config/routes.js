@@ -1,4 +1,4 @@
-const admin = require('./admin') 
+const admin = require('./admin')
 
 module.exports = app => {
     app.post('/signup', app.api.user.save)
@@ -23,7 +23,7 @@ module.exports = app => {
     app.route('/categories/tree')
         .all(app.config.passport.authenticate())
         .get(app.api.category.getTree)
-        
+
     app.route('/categories/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.category.getById)
@@ -44,4 +44,8 @@ module.exports = app => {
     app.route('/categories/:id/articles')
         .all(app.config.passport.authenticate())
         .get(app.api.article.getByCategory)
+
+    app.route('/stats')
+        .all(app.config.passport.authenticate())
+        .get(app.api.stat.get)
 }
