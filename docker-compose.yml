@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db: 
+    image: postgres:alpine
+    container_name: api-db
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+  app:
+    build: .
+    container_name: "api-server"
+    command: sh -c "npm start"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=localhost
+      - DB_USER=postgres
+      - DB_PASS=123456
+  
